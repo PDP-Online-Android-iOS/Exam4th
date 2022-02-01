@@ -45,6 +45,11 @@ public class FoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    public void updateData(List<Food> foods) {
+        this.foods.addAll(foods);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return foods.size();

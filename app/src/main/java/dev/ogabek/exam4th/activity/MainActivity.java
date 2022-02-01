@@ -1,5 +1,6 @@
 package dev.ogabek.exam4th.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +45,20 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                GridLayoutManager layoutManager = GridLayoutManager.class.cast(recyclerView.getLayoutManager());
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisible = layoutManager.findLastVisibleItemPosition();
+
+                boolean endHasBeenReached = lastVisible + 5 >= totalItemCount;
+                if (totalItemCount > 0 && endHasBeenReached) {
+                    adapter.updateData(prepareFoodsList());
+                }
+            }
+        });
+
     }
 
     private List<Food> prepareFoodsList() {
@@ -59,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         foods.add(new Food(R.drawable.frie, "Frie", 3.39, 2.5F, "Avalon", "Beruniy, Toshkent"));
         return foods;
     }
-
-//    private boolean isTablet() {
-//        TelephonyManager manager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-//        return manager.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE;
-//    }
 
     public static boolean isTablet(Context ctx){
         return (ctx.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
