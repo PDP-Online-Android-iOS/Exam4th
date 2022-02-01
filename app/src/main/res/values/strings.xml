@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Exam 4th</string>
+    <string name="food_name">Food Name</string>
+    <string name="food_price">$food_price</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="friendlyeats">FriendlyEats</string>
+    <string name="all_restaurants">All Restaurants</string>
 </resources>
